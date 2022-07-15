@@ -21,16 +21,17 @@ client.once('ready', () => {
 // 	}
 // });
 
-client.on('message', message => {
+client.on('message', async message => {
   if (message.content.startsWith(`${prefix}member_list`)) {
       // console.log(message.guild)
       // console.log(message.guild.members)
       // console.log(message.guild.members.cache)
-
       console.log('"表示名","username","userid","bot?"')
-      message.guild.members.cache.forEach(member =>{
+      message.guild.members.fetch().then(members => members.forEach(member =>{
         console.log(`"${member.displayName}","${member.user.username}#${member.user.discriminator}","${member.id}","${member.user.bot}"`)
-      })
+      }))
+      
+       message.channel.send("OK")
       // message.channel.send(`${message.guild.name}サーバのメンバーリストをボットが起動中のマシンに出力しました`);
 	} 
 });
